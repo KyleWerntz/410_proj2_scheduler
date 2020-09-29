@@ -23,13 +23,16 @@ bool Scheduler_SRTF::time_to_switch_processes(int tick_count, PCB &p)	{
 
 void Scheduler_SRTF::sort()	{
 	std::vector<PCB> v;
-	for (int i = 0; i < ready_q->size(); i++)	{
+	while (!ready_q->empty())	{
 		v.push_back(ready_q->front());
 		ready_q->pop();
 	}
+
 	std::sort(v.begin(), v.end(), compare_cpu_time);
 
-	for (int i = 0; i < v.size(); i++)	{
-		ready_q->push(v.at(i));
+	while (!v.empty())	{
+		ready_q->push(v.front());
+		v.erase(v.begin());
 	}
 }
+

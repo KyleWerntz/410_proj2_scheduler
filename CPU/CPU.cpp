@@ -35,6 +35,7 @@
 			return PCB(*current_Process);		//return a copy of current_process
 	}
 
+
 	//will return the PCB thats currently on the core or an uninitialized PCB
 	PCB CPU::get_process_off_core(){
 			if (current_Process !=NULL){

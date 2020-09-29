@@ -8,6 +8,7 @@
 #include "../includes/file_io.h"
 #include "../includes/joblist.h"
 
+
 int Joblist::init(const char *filename) {
 	retCode = loadData(filename);
 	sortData(ARRIVAL_TIME);

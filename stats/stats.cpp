@@ -35,11 +35,11 @@ float Stats::get_av_response_time()	{
 float Stats::get_av_turnaround_time()	{
 	float avg_time = 0.0;
 
-		for (int i = 0; i < vec->size(); i++)	{
-			avg_time = avg_time + vec->at(i).finish_time - vec->at(i).arrival_time;
-		}
-		avg_time = avg_time / vec->size();
-		return avg_time;
+	for (int i = 0; i < vec->size(); i++)	{
+		avg_time = avg_time + vec->at(i).finish_time - vec->at(i).arrival_time;
+	}
+	avg_time = avg_time / vec->size();
+	return avg_time;
 }
 
 float Stats::get_av_wait_time()	{
@@ -51,3 +51,4 @@ float Stats::get_av_wait_time()	{
 		avg_time = avg_time / vec->size();
 		return avg_time;
 }
+

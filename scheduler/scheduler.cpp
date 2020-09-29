@@ -12,24 +12,38 @@ bool Scheduler::isEmpty()	{
 }
 
 PCB Scheduler::getNext()	{
-	return ready_q->front();
+	PCB p = ready_q->front();
+	ready_q->pop();
+
+	return p;
 }
 
+//STF doesn't have anything in it when it's adding the 2nd one???
 void Scheduler::add(PCB p)	{
-	sort();
+	if (!ready_q->empty() && p.process_number == ready_q->front().process_number)
+		ready_q->pop();
 	ready_q->push(p);
+	sort();
 }
 
+// (required - remaining) % timeslice
 bool Scheduler::time_to_switch_processes(int tick_count, PCB &p)	{
-	if (preemptive)	{
-		if (tick_count > time_slice)	{
-			return true;
-		}
-	} else	{
-		if (p.remaining_cpu_time == 0)	{
-			return true;
+	if (p.remaining_cpu_time == 0)
+		return true;
+	else if (p.process_number == -5 && ready_q->size() > 0)
+		return true;
+
+	else if (preemptive)	{
+		if (time_slice == -5)
+			return !ready_q->empty() && p.remaining_cpu_time > ready_q->front().remaining_cpu_time;
+
+		if (p.required_cpu_time != p.remaining_cpu_time)	{
+			return (p.required_cpu_time - p.remaining_cpu_time) % time_slice == 0;
 		}
 	}
+	else
+		return p.remaining_cpu_time == 0;
 
 	return false;
 }
+

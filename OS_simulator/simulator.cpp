@@ -82,6 +82,7 @@ void simulate(const char* pSourceFile, Scheduler &s,std::vector<PCB> &finished_v
 		if(joblist.isEmpty() && scheduler->isEmpty() && currentJob.isEmpty() )
 			break;
 
+
 		//finally run the job for 1 tick
 		if (dispatch.isValidJobOnCPU()){
 			cpu.run();
